@@ -1,6 +1,4 @@
-﻿using System;
-using CodeBase.CameraLogic;
-using CodeBase.Infrastructure;
+﻿using CodeBase.Infrastructure;
 using CodeBase.Services.Inputs;
 using UnityEngine;
 
@@ -10,19 +8,14 @@ namespace CodeBase.Hero
     {
         private IInputService _inputService;
         public CharacterController CharacterController;
-        public float MovementSpeed;
-        private Camera _camera;
        
+        private Camera _camera;
+        public float MovementSpeed;
+
         private void Awake()
         {
             _inputService = Game.InputService;
             Debug.Log(_inputService.Axis);
-        }
-
-        public void Start()
-        {
-            _camera = Camera.main;
-            CameraFollow();
         }
 
         private void Update()
@@ -32,7 +25,7 @@ namespace CodeBase.Hero
            
             if (_inputService.Axis.sqrMagnitude > Constants.Epsilon)
             {
-                movementVector = _camera.transform.TransformDirection(_inputService.Axis);
+                movementVector = Camera.main.transform.TransformDirection(_inputService.Axis);
                 movementVector.y = 0;
                 movementVector.Normalize();
                 transform.forward = movementVector;
@@ -42,6 +35,5 @@ namespace CodeBase.Hero
                
             CharacterController.Move(movementVector * (MovementSpeed * Time.deltaTime));
         }
-        private void CameraFollow() => _camera.GetComponent<CameraFollow>().Following(gameObject);
     }
 }

@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
-
+using  CodeBase.Services.Inputs;
+using  CodeBase.Services.Inputs;
 namespace CodeBase.Services.Inputs
 {
     public class StandAloneInputService : InputService
     {
+        public StandAloneInputService()
+        {
+            
+        }
         public override Vector2 Axis
         {
             get
